@@ -1,0 +1,72 @@
+<?php
+class MYCRUD{
+    public $pdo;
+////////////////////////// CONEXÃO COM BANCO DE DADOS
+public function conectar($host,$user,$dbname,$password){
+    GLOBAL $pdo;
+    try {
+        $pdo = NEW PDO("mysql:dbname=".$dbname.";host=".$host,$user,$password);
+    } catch (PDOException $e) {
+        echo "Erro com banco de dados: ".$e->getMessage();
+    }catch(Exception $e){
+        echo "Erro: ".$e->getMessage();
+    }
+}
+////////////////////////// INSERIR DADOS
+public function insert(){
+    GLOBAL $pdo;
+    $nome = "Marcos";
+    $telefone = "9999-9999";
+    $email = "email@gmail.com";
+
+    $sql = ("INSERT INTO PESSOA(Nome,Telefone,Email) VALUES(:n,:t,:e)");
+    $res = $pdo->prepare($sql);
+    $res->bindparam(":n",$nome);
+    $res->bindparam(":t",$telefone);
+    $res->bindparam(":e",$email);
+    $res->execute();
+}
+// OU INSERIR DADOS COM METODO QUERY
+/*
+    $pdo->query("INSERT INTO PESSOA(Nome,Telefone,Email) VALUES('Pedro','9999-9999','marc@gmail.com')");
+*/
+////////////////////////// UPDATE
+public function update(){
+    GLOBAL $pdo;
+    $id = 1;
+    $nome = "Marcos2";
+    $telefone = "9999-99992";
+    $email = "email@gmail.com2";
+    $sql = "UPDATE PESSOA SET Nome = :n, Telefone = :t, Email = :e WHERE id = :id";
+    $res = $pdo->prepare($sql);
+    $res->bindparam(":n",$nome);
+    $res->bindparam(":t",$telefone);
+    $res->bindparam(":e",$email);
+    $res->bindparam(":id",$id);
+    $res->execute();
+}
+////////////////////////// DELETE 
+public function delete(){
+    GLOBAL $pdo;
+    $sql = "DELETE FROM PESSOA WHERE id > 1";
+    $pdo->query($sql);
+}
+////////////////////////// SELECT 
+public function exibir(){
+    GLOBAL $pdo;
+    $sql = "SELECT * FROM PESSOA";
+    $res = $pdo->prepare($sql);
+    $res->execute();
+    /* COMO EXIBIR: */
+    #$res->fetch()    # EXIBIR UMA ÚNICA LINHA
+    #ou:
+    #$res->fetchAll() # EXIBIR UMA ÚNICA LINHA
+    $resultado = $res->fetchAll();
+    #print_r($resultado);
+    foreach ($resultado as $key => $value) { # $key é a chave $value o valor dela
+        echo $value['Nome']. " / <br>"; 
+        echo $value['Telefone']. " / <br>";
+        echo $value['Email']. " / <br>";
+    }
+}
+}
