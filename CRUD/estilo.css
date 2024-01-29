@@ -1,0 +1,71 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Arial;
+}
+
+label,input{
+    display: block;
+    line-height: 30px; /*altura da linha*/
+    height: 30px;
+    outline: nome; /*tirar bordas do input*/
+    font-size: 13px;
+    width: 100%;
+}
+
+form{
+    width: 330px;
+    background-color: rgba(0,0,0,.2);
+    padding: 20px;
+    margin: 35px auto; /*Empurrar o formulario um pouco para baixo*/
+}
+
+form h2{
+    text-align: center;
+}
+
+input[type=submit]{ /*Pegar apenas este input*/
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#esquerda{
+    width: 35%;
+    float: left; /*Ficar na esquerda*/
+    height: 500px;
+}
+
+#direita{
+    width: 65%;
+    float: left;
+    height: 500px;
+}
+
+/************ TABELA */
+table{
+    width: 90%;
+    background-color: rgba(0,0,0,0.2);
+    margin: 30px auto; /*Centralizar*/
+}
+
+tr{ /*formatanção da linha*/
+    line-height: 30px; /*Altura da linha*/
+}
+
+td{ /*formatanção da coluna*/
+    padding: 0 5px;
+}
+
+tr#titulo{
+    font-weight: bold; /*Ficar em negrito*/
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    background-color: white;
+    padding: 5px;
+    margin: 0 5px;
+    color: black;
+}
