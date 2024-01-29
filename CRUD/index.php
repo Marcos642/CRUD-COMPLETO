@@ -1,3 +1,8 @@
+<?php
+require_once "crud_pdo.php";
+$u = new MYCRUD;
+$u->conectar("localhost","root","meuBancoCrud","1714");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
