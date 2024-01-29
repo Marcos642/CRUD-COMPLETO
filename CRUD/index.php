@@ -1,3 +1,7 @@
+<?php
+    require_once 'ClassePessoa.php'; /* Chamando a classe */
+    $c = new Pessoa("meuBancoCrud","localhost","root","1714");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -28,12 +32,26 @@
                 <td>Telefone</td>
                 <td colspan="2">Email</td> <!-- colspan="2" ocupa duas colunas -->
             </tr>
-            <tr> <!-- LINHA -->
-                <td>Marcos</td> <!-- COLUNA -->
-                <td>9999-9999</td>
-                <td>marcos@gmail.com</td>
-                <td><a href="#">Editar</a> <a href="#">Excluir</a></td>
-            </tr>
+            <?php
+               $sql = "SELECT * FROM PESSOA";
+               $resultado = $pdo->query($sql);
+               
+               if ($resultado->rowCount() > 0) {
+                   // Exibir os dados
+                   while ($linha = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <tr> <!-- LINHA -->
+                        <td><?= $linha['Nome'] ?></td> <!-- COLUNA --> 
+                        <td><?= $linha['Telefone'] ?></td>
+                        <td><?= $linha['Email'] ?></td>
+                        <td><a href="#">Editar</a> <a href="#">Excluir</a></td>
+                    </tr>
+                    <?php
+                   }
+               }else{
+                    echo "Sem dados";
+               }
+            ?>
         </table>
     </section>
 </body>
