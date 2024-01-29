@@ -60,7 +60,7 @@ public function exibir(){
     /* COMO EXIBIR: */
     #$res->fetch()    # EXIBIR UMA ÚNICA LINHA
     #ou:
-    #$res->fetchAll() # EXIBIR UMA ÚNICA LINHA
+    #$res->fetchAll() # EXIBIR VARIAS LINHAS
     $resultado = $res->fetchAll();
     #print_r($resultado);
     foreach ($resultado as $key => $value) { # $key é a chave $value o valor dela
