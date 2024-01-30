@@ -12,17 +12,42 @@
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
+    <?php
+    // VERIFICAR A EXISTENCIA DO ID PARA ATUALIZAR
+    if(isset($_GET['id_up'])){
+        $id = $_GET["id_up"];
+        $res = $c->dadoVaiParaImput($id); # $res ten os dados que serão distribuidos nos inputs
+    }
+    ?>
     <section id="esquerda">
         <form method="POST">
             <h2>Cadastrar Pessoa</h2>
             <label for="Nome">Nome</label>
-                <input type="text" name="Nome" id="Nome">
+                <input type="text" name="Nome" id="Nome" 
+                    value="<?php
+                            if(isset($res)){ # acima esta a explicação da variavel $res
+                                echo $res['Nome']; #exibir oque etá na posição nome
+                            }?>">
             <label for="Telefone">Telefone</label>
-                <input type="text" name="Telefone" id="Telefone">
+                <input type="text" name="Telefone" id="Telefone"
+                value="<?php
+                            if(isset($res)){ # acima esta a explicação da variavel $res
+                                echo $res['Telefone']; #exibir oque etá na posição telefone
+                            }?>">
             <label for="Email">Email</label>
-                <input type="email" name="Email" id="Email">
+                <input type="email" name="Email" id="Email"
+                    value="<?php
+                            if(isset($res)){ # acima esta a explicação da variavel $res
+                                echo $res['Email']; #exibir oque etá na posição email
+                            }?>">
 
-                <input type="submit" name="Enviar" value="Cadastrar">
+                <input type="submit" name="Enviar" 
+                value="<?php 
+                    if(isset($res)){
+                        echo "Editar";}
+                    else{
+                        echo"Cadastrar";}
+                ?>">
         </form>
     </section>
 
@@ -46,7 +71,8 @@
                         <td><?= $linha['Telefone'] ?></td>
                         <td><?= $linha['Email'] ?></td>
                         <td>
-                            <a href="index.php">Editar</a> 
+                            <!-- PEGAR O ID E ENVIAR VIA GET / ATUALIZAÇÃO FEITA EM CIMA -->
+                            <a href="index.php?id_up=<?= $linha['Id'] ?>">Editar</a> 
                             <!-- PEGAR O ID E ENVIAR VIA GET / EXCLUSÃO FEITA EM BAIXO -->
                             <a href="index.php?id=<?= $linha['Id'] ?>">Excluir</a>
                         </td>

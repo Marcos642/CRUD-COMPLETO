@@ -52,4 +52,20 @@ class Pessoa{
         $row->bindParam(":id",$id);
         $row->execute();
     }
+
+    /* ATUALIZAÇÃO DE DADOS */
+    /* 1 ETAPA: FAZER OS DADOS APARECEREM DENTRO NO INPUT E MUDAR O NOME BOTÃO PARA ATUALIZAR */
+    public function dadoVaiParaImput($id){
+        GLOBAL $pdo;
+
+        $res = array(); // caso não venha dados do banco
+        $sql = "SELECT * FROM PESSOA WHERE Id = :id";
+        $row = $pdo->prepare($sql);
+        $row->bindParam(":id",$id);
+        $row->execute();
+        $res = $row->fetch(PDO::FETCH_ASSOC); // ARRAY PARA APENAS UMA PESSOA
+        return $res;
+    }
+
+    /* 2 ETAPA: ATUALIZAR OS DADOS */
 }
