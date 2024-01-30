@@ -45,7 +45,11 @@
                         <td><?= $linha['Nome'] ?></td> <!-- COLUNA --> 
                         <td><?= $linha['Telefone'] ?></td>
                         <td><?= $linha['Email'] ?></td>
-                        <td><a href="#">Editar</a> <a href="#">Excluir</a></td>
+                        <td>
+                            <a href="index.php">Editar</a> 
+                            <!-- PEGAR O ID E ENVIAR VIA GET / EXCLUSÃO FEITA EM BAIXO -->
+                            <a href="index.php?id=<?= $linha['Id'] ?>">Excluir</a>
+                        </td>
                     </tr>
                     <?php
                    }
@@ -57,3 +61,12 @@
     </section>
 </body>
 </html>
+
+<!-- PEGAR O GET E APAGAR LINHA NA TABELA -->
+<?php
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $c->excluir($id);
+        header('Location: index.php');
+    }
+?>

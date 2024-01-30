@@ -44,4 +44,12 @@ class Pessoa{
             
         }
     }
+    /* EXCLUIR PESSOA */
+    public function excluir($id){
+        GLOBAL $pdo;
+        $sql = "DELETE FROM PESSOA WHERE Id = :id";
+        $row = $pdo->prepare($sql);
+        $row->bindParam(":id",$id);
+        $row->execute();
+    }
 }
