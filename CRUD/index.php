@@ -1,6 +1,7 @@
 <?php
     require_once 'ClassePessoa.php'; /* Chamando a classe */
     $c = new Pessoa("meuBancoCrud","localhost","root","1714");
+    $c->cadastrarPessoa();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,7 +20,7 @@
             <label for="Telefone">Telefone</label>
                 <input type="text" name="Telefone" id="Telefone">
             <label for="Email">Email</label>
-                <input type="text" name="Email" id="Email">
+                <input type="email" name="Email" id="Email">
 
                 <input type="submit" name="Enviar" value="Cadastrar">
         </form>
