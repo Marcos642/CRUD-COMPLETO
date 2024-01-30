@@ -15,7 +15,7 @@ class Pessoa{
     /* TRAZER TODOS OS DADOS DO BANCO */
     public function cadastrarPessoa(){
         GLOBAL $pdo;
-        if(isset($_POST["Enviar"])){
+        if(isset($_POST["Cadastrar"])){
             // PEGANDO DADOS DO FORM
             $nome = addslashes($_POST["Nome"]); # addslashes(): Para segurança da informação
             $telefone = addslashes($_POST["Telefone"]);
@@ -68,4 +68,14 @@ class Pessoa{
     }
 
     /* 2 ETAPA: ATUALIZAR OS DADOS */
+    public function atualizar($Id,$Nome,$Telefone,$Email){
+        GLOBAL $pdo;
+        $sql = "UPDATE PESSOA SET Nome = :n, Telefone = :t, Email = :e WHERE Id = :id";
+        $row = $pdo->prepare($sql);
+        $row->bindParam(":id",$Id);
+        $row->bindParam(":n",$Nome);
+        $row->bindParam(":t",$Telefone);
+        $row->bindParam(":e",$Email);
+        $row->execute();
+    }
 }

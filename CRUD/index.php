@@ -1,7 +1,14 @@
 <?php
     require_once 'ClassePessoa.php'; /* Chamando a classe */
     $c = new Pessoa("meuBancoCrud","localhost","root","1714");
-    $c->cadastrarPessoa();
+
+    // PEGAR O GET E APAGAR LINHA NA TABELA
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $c->excluir($id);
+        header('Location: index.php');
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,12 +20,25 @@
 </head>
 <body>
     <?php
-    // VERIFICAR A EXISTENCIA DO ID PARA ATUALIZAR
+    // VERIFICAR A EXISTENCIA DO ID PARA JOGAR DADOS NO INPUT
     if(isset($_GET['id_up'])){
         $id = $_GET["id_up"];
-        $res = $c->dadoVaiParaImput($id); # $res ten os dados que serão distribuidos nos inputs
+        $res = $c->dadoVaiParaImput($id); # $res tem os dados que serão distribuidos nos inputs
+    }
+
+    // VERIFICAR A EXISTENCIA DO ID PARA ATUALIZAR
+    if(isset($_GET['id_up']) && isset($_POST['Editar'])){
+        $Id = $_GET['id_up']; 
+        $Nome = $_POST['Nome']; 
+        $Telefone = $_POST['Telefone']; 
+        $Email = $_POST['Email']; 
+        $c->atualizar($Id,$Nome,$Telefone,$Email);
+        header('Location: index.php');
+    }else{ // SE O ID $_GET['id_up'] NÃO EXISTE É PORQUE SERA FEITO APENAS UM CADASTRO
+        $c->cadastrarPessoa();
     }
     ?>
+    <!----------------------- SESSÃO DE CADASTRO E ATUALIZAÇÃO DE DADOS ----------------------->
     <section id="esquerda">
         <form method="POST">
             <h2>Cadastrar Pessoa</h2>
@@ -41,16 +61,17 @@
                                 echo $res['Email']; #exibir oque etá na posição email
                             }?>">
 
-                <input type="submit" name="Enviar" 
-                value="<?php 
+                <input type="submit" value="Cadastrar" name="<?php 
                     if(isset($res)){
-                        echo "Editar";}
+                        echo "Editar";
+                    }
                     else{
-                        echo"Cadastrar";}
+                        echo"Cadastrar";
+                    }
                 ?>">
         </form>
     </section>
-
+    <!----------------------- SESSÃO DE EXIBIÇÃO DE DADOS ----------------------->
     <section id="direita">
         <table>
             <tr id="titulo"> <!-- LINHA -->
@@ -87,12 +108,3 @@
     </section>
 </body>
 </html>
-
-<!-- PEGAR O GET E APAGAR LINHA NA TABELA -->
-<?php
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-        $c->excluir($id);
-        header('Location: index.php');
-    }
-?>
