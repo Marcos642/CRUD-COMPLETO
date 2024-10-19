@@ -1,6 +1,6 @@
 <?php
     require_once 'ClassePessoa.php'; /* Chamando a classe */
-    $c = new Pessoa("meuBancoCrud","localhost","root","1714");
+    $c = new Pessoa("meuBancoCrud","localhost","root","");
 
     // PEGAR O GET E APAGAR LINHA NA TABELA
     if(isset($_GET['id'])){
@@ -8,7 +8,6 @@
         $c->excluir($id);
         header('Location: index.php');
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
